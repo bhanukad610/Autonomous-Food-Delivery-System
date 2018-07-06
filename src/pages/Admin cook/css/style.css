@@ -1,0 +1,162 @@
+body, html{
+     height: 100%;
+ 	background-repeat: no-repeat;
+ 	background-image: url('maxresdefault.jpg');
+ 	font-family: 'Oxygen', sans-serif;
+	    background-size: cover;
+}
+
+
+
+.clearfix{
+    clear: both;
+}
+
+.title h1{
+    padding : 10px;
+    text-align: center;
+    font-size: 60px;
+    margin-top: 2px;
+    animation-name: titlein ;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    position: relative;
+    animation-timing-function: ease-out;
+ 
+}
+
+@keyframes titlein{
+    0%{top:-100px;}
+    100%{top:0px;}
+}
+.lists{
+    
+    
+    
+    padding:10px;
+    margin: 20px;
+    border:2px white solid;
+    min-height: 300px;
+    box-sizing: border-box;
+    
+    background-blend-mode: overlay;
+    border-radius: 10px;
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-around;
+    align-items: center;
+    align-self: stretch;
+ 
+
+    
+    
+    
+    
+}
+
+.lists h1{
+    margin-top: 0px;
+    padding : 3px;
+    background-color: rgba(70, 130, 180,0.7);
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    border:1px white solid;
+    animation-name: listTitleIn ;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    position: relative;
+}
+
+@keyframes listTitleIn{
+    0%{opacity: 0;}
+    100%{opacity:1;}
+}
+
+.lists ul{
+    padding: 3px;
+    padding-top : 7px;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: rgba(71, 61, 139, 0.1);
+    border-radius: 5px;
+    
+    
+}
+.lists li{
+    list-style: none;
+    padding-left: 20px;
+   
+    
+}
+.lists li:hover{
+    background-color: rgba(109, 108, 108, 0.555);
+    border-radius: 3px;
+    cursor: pointer;
+    color: white;
+}
+
+.toCookQ{
+   /*float:left; */
+    animation-name: cookQin ;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    position: relative;
+    top:0px;
+    display: inline-block;
+    background-color: rgba(0, 206, 209,0.3);
+    flex-basis: 40%;
+    align-self: stretch;
+    
+}
+
+@keyframes cookQin{
+    0%{left:-100px;}
+    100%{left:0px;}
+}
+
+.toDeliverQ{
+   /* float:right;*/
+    animation-name: deliverQin ;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    position: relative;
+
+    align-self: stretch;
+    display: inline-block;
+    background-color: rgba(0, 206, 209,0.3);
+    flex-basis: 45%;
+    
+}
+
+@keyframes deliverQin{
+    0%{right:-100px;}
+    100%{right:0px;}
+}
+
+.submitbtn{
+    display: block;
+    padding:10px;
+    margin : 5px;
+    float: left;
+    border-radius: 3px;
+
+    animation-name: submitbtn ;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    position: relative;
+}
+
+@keyframes submitbtn{
+    0%{left:-100px;}
+    100%{left:0px;}
+}
+
+#btn{
+    padding :5px;
+    margin: auto;
+    background-color: rgb(32, 72, 252);
+    border-color: rgb(0, 81, 255);
+    border-radius : 3px;
+    color: white;
+}

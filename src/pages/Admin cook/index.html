@@ -1,0 +1,49 @@
+<?php
+   
+   $querry = "SELECT * customers";
+   $result = mysqli_query()
+
+ ?>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+		<!-- Website CSS style -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Website Font style -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+	<title>Admin Cook</title>
+</head>
+<body>
+<div class="Header">
+	<h1>Admin Page</h1>
+</div><!--Header-->
+
+<form action="data.php" method="get">
+	<p>Enter table numbers</p>
+	<div class="Table_numbers">
+		<input type="checkbox" name="number[]" id="number" value=2>1
+		<input type="checkbox" name="number[]" id="number" value=4>2
+		<input type="checkbox" name="number[]" id="number" value=7>3
+		<input type="checkbox" name="number[]" id="number" value=9>4
+		<input type="checkbox" name="number[]" id="number" value=11>5
+		<input type="checkbox" name="number[]" id="number" value=14>6
+		<input type="checkbox" name="number[]" id="number" value=16>7
+		<input type="checkbox" name="number[]" id="number" value=18>8
+	</div><!--Table numbers-->
+	<input type="Submit" name="Submit">
+</form>
+
+</body>
+</html>
