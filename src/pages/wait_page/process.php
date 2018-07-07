@@ -9,7 +9,18 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $tp = $_POST['tp'];
 $tablenum=$_POST['tableno'];
-$food = $_POST['foods'];
+
+
+session_start();
+$_SESSION['name'] = $name;
+$food = $_SESSION['fooditem'];
+
+$prices = array('1'=>120, '2'=>150, '3'=>80, '4'=>100);
+$mealList = array('1'=>'Rice & Curry','2'=>'Fried Rice', '3'=>'String Hoppers', '4'=>'Hoppers');
+$_SESSION['price'] = $prices[$food];
+$prices = array('Rice & Curry'=>120, 'Fried Rice'=>150, 'String Hoppers'=>80, 'Hoppers'=>100);
+$_SESSION['meal'] = $mealList[$food];
+
 
 mysqli_query($connect, "INSERT INTO user_info(name,email,phone,tableno,food) VALUES ('$name','$email','$tp','$tablenum','$food')");
 //echo "data input succesfull";
@@ -89,7 +100,7 @@ else{
                         
                         <a id="btn2" class="btn btn-success btn-lg" role="button" onclick="mediaplay()">Play / Pause music</a>
                         <!--<a id="btn3" class="btn btn-primary btn-lg" role="button" href="#">Go to Home </a> -->
-                        <a id="btn4" class="btn btn-success btn-lg" role="button" href="#">Pay now</a></p>
+                        <a id="btn4" class="btn btn-success btn-lg" role="button" href="../payment-page/index.php">Pay now</a></p>
                         
                 </div>
                 <div class="col-md-12">

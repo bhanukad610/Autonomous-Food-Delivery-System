@@ -67,20 +67,7 @@
 		  						</div>
 	  						</div>	
 						</div>
-						<div class="form-group">
-  							<label  for="fooditem">Food Item</label>
-  							<div class="cols-sm-10">
-  								<div class="input-group">
-		  								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-		  								<select id="foods" class="form-control" name="foods" required>
-		  									<option value="" disabled selected>Select your option</option>
-		  									<option value=1>Fried Rice</option>
-		  									<option value=2>Rice and curry</option>
-		  								</select>
-		  						</div>
-	  						</div>	
-						</div>
-
+						
 						<div class="form-group ">
 							<input type="submit" value="Order Now" id="button" class="btn btn-primary btn-lg btn-block login-button">
 						</div>
@@ -97,3 +84,7 @@
     <script src="js/myjs.js"></script>
 	</body>
 </html>
+<?php
+session_start();
+$_SESSION['fooditem'] = $_GET['fooditem'];
+?>

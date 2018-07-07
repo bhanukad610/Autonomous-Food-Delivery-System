@@ -20,7 +20,6 @@ $toDeliverQuery="SELECT * from user_info WHERE showcook=1 and queued=0 ORDER BY 
     
     if($toCookResponse){
         while($row=mysqli_fetch_array($toCookResponse)){
-            //$tocook[]= $row['name'];
             $name= $row['name'];
             $id = $row['id'];
             $tableno = $row['tableno'];
@@ -68,7 +67,7 @@ if(isset($_GET["reset"])){
         
         $id=mysql_real_escape_string($value['id']);
         echo $id;
-        $ResetQuery="UPDATE user_info SET showcook=0 WHERE id='$id'"; //error here
+        $ResetQuery="UPDATE user_info SET showcook=0 WHERE id='$id'";
         $ResetResult = mysqli_query($connect,$ResetQuery);
         
         if ($connect->query($ResetQuery)===TRUE) {
