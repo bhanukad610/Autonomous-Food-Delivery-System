@@ -42,7 +42,7 @@ require_once('getData.php');
 		<button id="btn">Prepared</button>
 	</div>
 
-	<div class="resetbtn">
+	<div class="resetbtn submitbtn">
 	 	<button id="rstbtn">Reset</button>
 	</div>
 	

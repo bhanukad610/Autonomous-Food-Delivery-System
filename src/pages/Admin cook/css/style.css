@@ -116,7 +116,7 @@ body, html{
 }
 
 .toDeliverQ{
-   /* float:right;*/
+
     animation-name: deliverQin ;
     animation-duration: 3s;
     animation-fill-mode: forwards;
@@ -154,9 +154,24 @@ body, html{
 
 #btn{
     padding :5px;
+    text-align: center;
+    width: 80px;
     margin: auto;
     background-color: rgb(32, 72, 252);
     border-color: rgb(0, 81, 255);
     border-radius : 3px;
     color: white;
+}
+
+#rstbtn{
+    text-align: right;
+    padding :5px;
+    width: 80px;
+    padding-right: 25px;
+    background-color: rgb(32, 72, 252);
+    border-color: rgb(0, 81, 255);
+    border-radius : 3px;
+    border-right: 10px;
+    color: white;
+
 }
