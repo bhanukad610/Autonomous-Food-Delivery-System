@@ -23,7 +23,8 @@ $toDeliverQuery="SELECT * from user_info WHERE showcook=1 and queued=0 ORDER BY 
             $name= $row['name'];
             $id = $row['id'];
             $tableno = $row['tableno'];
-            $tocook[] = array('name'=>$name,'id'=>$id, 'tableno' => $tableno);
+            $food = $row['food'];
+            $tocook[] = array('name'=>$name,'id'=>$id, 'tableno' => $tableno, 'food'=>$food);
         }
     }
 
@@ -33,9 +34,14 @@ $toDeliverQuery="SELECT * from user_info WHERE showcook=1 and queued=0 ORDER BY 
             $name= $row['name'];
             $id = $row['id'];
             $tableno = $row['tableno'];
-            $toDeliver[]= array('name'=>$name,'id'=>$id, 'tableno' => $tableno);
+            $food = $row['food'];
+            $toDeliver[]= array('name'=>$name,'id'=>$id, 'tableno' => $tableno,'food'=>$food);
         }
     }
+
+
+
+    
 
 //This function travese through a nested array until it gets an array element which has 'id'==$id and returns its index    
 function searchForId($id, $array) {
@@ -52,15 +58,17 @@ function searchForId($id, $array) {
 //element is removed from the cook list and added to the deliver list
 if( isset($_GET["element"])){
     $element=$_GET["element"];
-    //echo $element;
+    $element = str_replace("<pre>","",$element);
+    echo $element;
+
     $sqlElement=mysql_real_escape_string($element);
 
     $updateCookArrayQuery= "UPDATE user_info SET showcook=1 WHERE id='$sqlElement'";
     $updateCookArray=mysqli_query($connect,$updateCookArrayQuery);
 
     if ($connect->query($updateCookArrayQuery)===TRUE) {
-        //echo "data updated succesfully";
-        ;
+        echo "data updated succesfully";
+       // ;
     }
     else{
         echo "error". $connect->error;
@@ -69,11 +77,11 @@ if( isset($_GET["element"])){
 
     array_push($toDeliver,$element);
     $removingElementKey=searchForId($element,$tocook);
-    //echo $removingElementKey;
+    echo $removingElementKey;
     unset($tocook[$removingElementKey]);
     $tocook = array_values($tocook);
-    //echo '<pre>'; print_r($tocook); echo '</pre>';
-    //echo '<pre>'; print_r($toDeliver); echo '</pre>';
+    echo '<pre>'; print_r($tocook); echo '</pre>';
+    echo '<pre>'; print_r($toDeliver); echo '</pre>';
 
 }
 
@@ -84,13 +92,13 @@ if(isset($_GET["reset"])){
     foreach ($toDeliver as $value) {
         
         $id=mysql_real_escape_string($value['id']);
-        //echo $id;
+        echo $id;
         $ResetQuery="UPDATE user_info SET showcook=0 WHERE id='$id'";
         $ResetResult = mysqli_query($connect,$ResetQuery);
         
         if ($connect->query($ResetQuery)===TRUE) {
-            ;
-        //echo "data updated succesfully";
+            //;
+        echo "data updated succesfully";
         }
         else{
             echo "error". $connect->error;
@@ -100,6 +108,11 @@ if(isset($_GET["reset"])){
     }
     $connect->close();
 }
+
+
+
+
+
 
 if(isset($_GET["deliverylist"])){
     

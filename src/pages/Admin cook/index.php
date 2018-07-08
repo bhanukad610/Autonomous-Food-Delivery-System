@@ -30,10 +30,16 @@ require_once('getData.php');
 	<div class="lists">
 		<div class="toCookQ">
 			<h1 class="tableTitle">Food to be Cooked</h1>
+	 				<div class="columns">
+						<h4>&nbsp;&nbsp;No.&emsp;&nbsp;Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Table No.&emsp;&emsp;Food Item</h4>	
+	 				</div>
 				<ul class="cookList"></ul>
 		</div>
 		<div class="toDeliverQ">
 			<h1 class="tableTitle">Food to be delivered</h1>
+	 		<div class="columns">
+						<h4>&nbsp;&nbsp;No.&emsp;&nbsp;Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Table No.&emsp;&emsp;Food Item</h4>
+	 			</div>
 				<ul class="deliverList"></ul>
 		</div>
 	</div>
@@ -51,38 +57,6 @@ require_once('getData.php');
 	 var toCookarray=<?php echo json_encode($tocook) ;?>;
 	 var toDeliverarray=<?php echo json_encode($toDeliver) ;?>;
 	</script>
-<!--	<script>
-    $(document).ready(function(){
-		
-        setInterval(function () {
-			
-			$.ajax({
-				type:"POST",
-				url :"getData.php",
-				dataType:"json",
-				
-				success: function (data,status) {
-					//console.log(typeof(data));
-					console.log(data);
-					var toCookarray = data;
-					console.log(typeof(toCookarray));
-					if(!($.isEmptyObject(toCookarray)));{
-							for (const iterator of toCookarray) {
-							$(".cookList").append("<li class='test'>" + iterator + "</li>");
-						}	
-					}
-				
 
-				},
-				error: function(xhr,status,error){
-					console.log(error);
-				}
-			});
-			
-			
-        },1000);
-     
-    });
-	</script> -->
 </body>
 </html>

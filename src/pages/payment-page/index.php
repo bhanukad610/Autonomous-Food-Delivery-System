@@ -67,7 +67,7 @@
 		</div><!--invoice box-->
 		<h4>Thank You! Come again!</h4>
 	</body>
-	<a class="button" href="../HomePage/index.php">Home</a>
+	<a class="button" href="../HomePage/index.html">Home</a>
 </div><!--container-->
 </html>
 <?php

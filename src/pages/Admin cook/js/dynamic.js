@@ -3,12 +3,55 @@ $(document).ready(function () {
 
     //Update the to cook list
    for (const iterator of toCookarray) {
-      console.log(iterator);
-       $(".cookList").append("<li>" + iterator.id + " " + iterator.name + " " + iterator.tableno + "</li>");
-   }
+      
+      var meal="";
+      if(iterator.food==1){
+        meal="Rice & Curry";
+      }
+      if(iterator.food==2){
+        meal="Fried Rice";
+      }
+      if(iterator.food==3){
+        meal="String Hoppers";
+      }
+      if(iterator.food==4){
+        meal="Hoppers";
+      }
+      var name= iterator.name;
+      var len = name.length;
+      while (len<25) {
+          
+          name = name+" ";
+          var len = name.length;
+      }
+      
+      
+       $(".cookList").append("<li><pre>" + iterator.id + "    " + name + " " + iterator.tableno + "          " + meal + "</pre></li>");
+    }
    //Update the to deliver list
     for (const iterator of toDeliverarray) {
-        $(".deliverList").append("<li>" + iterator.id + " " + iterator.name + " " + iterator.tableno + "</li>");
+        var meal = "";
+        if (iterator.food == 1) {
+            meal = "Rice & Curry";
+        }
+        if (iterator.food == 2) {
+            meal = "Fried Rice";
+        }
+        if (iterator.food == 3) {
+            meal = "String Hoppers";
+        }
+        if (iterator.food == 4) {
+            meal = "Hoppers";
+        }
+
+        var name = iterator.name;
+        var len = name.length;
+        while (len < 25) {
+
+            name = name + " ";
+            var len = name.length;
+        }
+        $(".deliverList").append("<li><pre>" + iterator.id + "    " + name + " " + iterator.tableno + "          " + meal + "</pre></li>");
     }
 
     //Update css when list item of the to cook list is selected
@@ -23,7 +66,7 @@ $(document).ready(function () {
         $(".cookList li").each(function (index) {
             if($(this).data('clicked')){
                 var element=$(this).html().split(" ");
-                //console.log(element[0]);
+                console.log(element[0]);
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.open("GET", "getData.php?element=" + element[0], false);   //element[0] is the id number of a given list item in cook list
                 xmlhttp.setRequestHeader("Content-type", "text/plain");
