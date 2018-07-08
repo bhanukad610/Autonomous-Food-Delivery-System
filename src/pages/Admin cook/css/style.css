@@ -161,7 +161,7 @@ body, html{
 
 @keyframes submitbtn{
     0%{left:-100px;}
-    100%{left:0px;}
+    100%{left:60px;}
 }
 
 #btn{
@@ -190,7 +190,7 @@ body, html{
 
 /* width */
 ::-webkit-scrollbar {
-    width: 20px;
+    width: 10px;
 }
 
 /* Track */
