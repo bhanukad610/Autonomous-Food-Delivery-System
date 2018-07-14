@@ -60,7 +60,7 @@ $(document).ready(function () {
         $(this).data('clicked',true);
     });
 
-
+    //toggle doesnt work on the following button
     //when 'prepared' button is clicked,iterate through all the selected elements and hit get requests to update the PHP lists
     $("#btn").click(function () {
         $(".cookList li").each(function (index) {

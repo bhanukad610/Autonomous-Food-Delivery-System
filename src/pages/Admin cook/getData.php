@@ -1,8 +1,12 @@
 <?php
 
 require_once('connection.php');
+
+/*************************************    Main Code  ************************************************************** */
 $tocook=array();
 $toDeliver=array();
+
+//**queued means the food is queued for delivery on the robot,not just added to the to deliver list
 
 //showcook=0 and queued=0 and delivered=0 means the item is shown in the to cook list
 //showcook=1 and queued=0 and delivered=0 means the item is finished preparing,removed from cook list and added to to deliver list
@@ -40,7 +44,7 @@ $toDeliverQuery="SELECT * from user_info WHERE showcook=1 and queued=0 ORDER BY 
     }
 
 
-
+/********************************** Main Code Finish  **********************************************/
     
 
 //This function travese through a nested array until it gets an array element which has 'id'==$id and returns its index    
@@ -52,6 +56,9 @@ function searchForId($id, $array) {
    }
    return null;
 }
+
+/***********************************Handling HTTP Requests******************************************************** */
+
 
 //This part is called when prepared button is clicked.All the clicked list items in the cook list raises a GET['element']request.
 //When that request is called the element is marked as prepared and to deliver(showcook=1 and queued=0) in the database
@@ -93,12 +100,12 @@ if(isset($_GET["reset"])){
         
         $id=mysql_real_escape_string($value['id']);
         echo $id;
-        $ResetQuery="UPDATE user_info SET showcook=0 WHERE id='$id'";
+        $ResetQuery="UPDATE user_info SET showcook=0 and queued=0 WHERE id='$id'";
         $ResetResult = mysqli_query($connect,$ResetQuery);
         
         if ($connect->query($ResetQuery)===TRUE) {
-            //;
-        echo "data updated succesfully";
+            ;
+        //echo "data updated succesfully";
         }
         else{
             echo "error". $connect->error;
@@ -115,7 +122,40 @@ if(isset($_GET["reset"])){
 
 
 if(isset($_GET["deliverylist"])){
-    
+    require("path.php");
+    $robotDeliveryQueue=array();
+    foreach($toDeliver as $value){                  //iterate through the $toDeliver list set their status as queued=1,add to robotDeliveryQueue and remove from toDeliver array
+        $id=mysql_real_escape_string($value['id']);
+        $sendToRobotQuery="UPDATE user_info SET queued=1 WHERE id='$id'";
+        $sendToRobotResponse=mysqli_query($connect,$sendToRobotQuery);
+
+
+        if ($connect->query($sendToRobotQuery)===TRUE) {
+            //;
+        echo "robot delivery queue updated succesfully";
+        }
+        else{
+            echo "error". $connect->error;
+        }
+        array_push($robotDeliveryQueue,$value['tableno']);  //push the table number of the element to the robotDeliveryQueue
+
+        $removingElementKey=searchForId($value['id'],$toDeliver);
+        echo "removing".$removingElementKey."from robotDeliverQueue" ;
+        unset($toDeliver[$removingElementKey]);     //remove the element from toDeliver queue and rearrange the array
+        $toDeliver = array_values($toDeliver);
+
+        
+    }
+    $connect->close();
+    echo "going through robot deliver queue";
+    echo print_r($robotDeliveryQueue);
+
+    //Call the path calculation for the table No.s in robotDeliveryQueue
+    $List = $robotDeliveryQueue;
+    sort($List);
+    $route = Pathfinder($List,$_distArr);
+    $directionList = directionFinder($data,$route);
+    print_r ($directionList);
 }
     
    
