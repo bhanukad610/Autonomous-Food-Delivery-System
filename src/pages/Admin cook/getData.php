@@ -131,8 +131,8 @@ if(isset($_GET["deliverylist"])){
 
 
         if ($connect->query($sendToRobotQuery)===TRUE) {
-            //;
-        echo "robot delivery queue updated succesfully";
+            ;
+        //echo "robot delivery queue updated succesfully";
         }
         else{
             echo "error". $connect->error;
@@ -140,22 +140,26 @@ if(isset($_GET["deliverylist"])){
         array_push($robotDeliveryQueue,$value['tableno']);  //push the table number of the element to the robotDeliveryQueue
 
         $removingElementKey=searchForId($value['id'],$toDeliver);
-        echo "removing".$removingElementKey."from robotDeliverQueue" ;
+
+        //echo "removing".$removingElementKey."from robotDeliverQueue" ;
         unset($toDeliver[$removingElementKey]);     //remove the element from toDeliver queue and rearrange the array
         $toDeliver = array_values($toDeliver);
 
         
     }
     $connect->close();
+    
+    /*
     echo "going through robot deliver queue";
     echo print_r($robotDeliveryQueue);
+    */
 
     //Call the path calculation for the table No.s in robotDeliveryQueue
     $List = $robotDeliveryQueue;
     sort($List);
     $route = Pathfinder($List,$_distArr);
     $directionList = directionFinder($data,$route);
-    print_r ($directionList);
+    
 }
     
    

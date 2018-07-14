@@ -84,80 +84,66 @@ return $Output;
 
 
 function Pathfinder($List,$_distArr){
-	$source = 0;
-	$path = array($source);
+	if(!empty($List)){
+		$source = 0;
+		$path = array($source);
 
-	while (count($List) > 0) {
-		$distance_path = array();
-		foreach ($List as $i) {
-			$details = Dijkstra($_distArr, $source, $i);
-			array_push($distance_path,$details);
-		}
+		while (count($List) > 0) {
+			$distance_path = array();
+			foreach ($List as $i) {
+				$details = Dijkstra($_distArr, $source, $i);
+				array_push($distance_path,$details);
+			}
+			/*
+			echo "distance_path:";
+			echo "<pre>";
+			print_r($distance_path);
+			echo "</pre>";
+			*/
 
-		/*echo "distance_path:";
-		echo "<pre>";
-		print_r($distance_path);
-		echo "</pre>";*/
-
-
-		do
-	{
-		$swapped = false;
-		for( $i = 0, $c = count( $distance_path ) - 1; $i < $c; $i++ )
+			do
 		{
-			if( $distance_path[$i][0] > $distance_path[$i + 1][0] )
+			$swapped = false;
+			for( $i = 0, $c = count( $distance_path ) - 1; $i < $c; $i++ )
 			{
-				list( $distance_path[$i + 1], $distance_path[$i] ) =
-						array( $distance_path[$i], $distance_path[$i + 1] );
-				$swapped = true;
+				if( $distance_path[$i][0] > $distance_path[$i + 1][0] )
+				{
+					list( $distance_path[$i + 1], $distance_path[$i] ) =
+							array( $distance_path[$i], $distance_path[$i + 1] );
+					$swapped = true;
+				}
 			}
 		}
-	}
-	while( $swapped );
-		$path = array_merge($path, Slice($distance_path[0][1]));
-		$source = $distance_path[0][1][count($distance_path[0][1]) - 1];
-		unset($List[array_search($source, $List)]);
-	}
+		while( $swapped );
+			$path = array_merge($path, Slice($distance_path[0][1]));
+			$source = $distance_path[0][1][count($distance_path[0][1]) - 1];
+			unset($List[array_search($source, $List)]);
+		}
 
-	$returnToCook = Dijkstra($_distArr,end($path),0);
-	$path = array_merge($path, Slice($returnToCook[1]));
-	/*
-	echo "returnToCook:";
-	echo "<pre>";
-	print_r($returnToCook);
-	echo "</pre>";
+		$returnToCook = Dijkstra($_distArr,end($path),0);
+		$path = array_merge($path, Slice($returnToCook[1]));
+		/*
+		echo "returnToCook:";
+		echo "<pre>";
+		print_r($returnToCook);
+		echo "</pre>";
 
-	echo "path:";
-	echo "<pre>";
-	print_r($path);
-	echo "</pre>";*/
-	return $path;
+		echo "path:";
+		echo "<pre>";
+		print_r($path);
+		echo "</pre>";
+
+		*/
+		return $path;
+	}
+	else{
+		echo "";
+		exit();
+	}
 }
 
 //****************************************** $data *************************************************************
 
-/*$data = array(
-        array(array(1, -1, -1, -1, 1)),
-        array(array(0, -1, 2, 5, 0), array(2, 5, 0, -1, 2), array(5, 0, -1, 2, 5)),
-        array(array(1, -1, 3, -1, 1), array(3, -1, 1, -1, 3)),
-        array(array(2, -1, 4, 6, 2), array(4, 6, 2, -1, 4), array(6, 2, -1, 4, 6)),
-        array(array(3, -1, -1, -1, 3)),
-        array(array(1, 6, 8, -1, 1), array(6, 8, -1, 1, 6)),
-        array(array(3, -1, 10, 5, 3), array(5, 3, -1, 10, 5), array(10, 5, 3, -1, 10)),
-        array(array(8, -1, -1, -1, 8)),
-        array(array(5, 9, 12, 7, 5), array(7, 5, 9, 12, 7), array(9, 12, 7, 5, 9), array(12, 7, 5, 9, 12)),
-        array(array(8, -1, 10, -1, 8), array(10, -1, 8, -1, 10)),
-        array(array(6, 11, 13, 9, 6), array(9, 6, 11, 13, 9), array(11, 13, 9, 6, 11), array(13, 9, 6, 11, 13)),
-        array(array(10, -1, -1, -1, 10)),
-        array(array(8, 13, 15, -1, 8), array(13, 15, -1, 8, 13), array(15, -1, 8, 13, 15)),
-        array(array(10, -1, 17, 12, 10), array(12, 10, -1, 17, 12), array(17, 12, 10, -1, 17)),
-        array(array(15, -1, -1, -1, 15)),
-        array(array(12, 16, -1, 14, 12), array(14, 12, 16, -1, 14), array(16, -1, 14, 12, 16)),
-        array(array(15, -1, 17, -1, 15), array(17, -1, 15, -1, 17)),
-        array(array(13, 18, -1, 16, 13), array(16, 13, 18, -1, 16), array(18, -1, 16, 13, 18)),
-        array(array(17, -1, -1, -1, 17))
-    );
-*/
 
 $data = array(
         array(array(9,-1,-1,-1,9)),
@@ -215,12 +201,20 @@ function directionFinder($data,$route){
 	                }
 				}
 			}
-		}/*
-	echo "Directions:";
+		}
+		/*
+	    echo "Directions:";
 		echo "<pre>";
 		print_r($direction);
-		echo "</pre>";*/
-	return $direction;
+		echo "</pre>";
+		*/
+        $mystring="";
+        foreach ($direction as $key) {
+           $mystring=$mystring.$key.",";
+        }
+        echo $mystring;
+        exit();
+        
 }
 
 
@@ -236,13 +230,15 @@ function Slice($List){
 
 //**************************************** calling functions ***********************************************
 
-/* Calling functions is done in getData.php  when a GET request with parameter 'deliverylist' is sent to it
+/* Calling functions is done in getData.php  when a GET request with parameter 'deliverylist' is sent to it*/
 
-//$List = $_GET['number'];
+
+/*//$List = $_GET['number'];
 $List = array(2,4,11,18);
 sort($List);
 $route = Pathfinder($List,$_distArr);
 $directionList = directionFinder($data,$route);
-
+echo $directionList;
 */
+
 ?>
