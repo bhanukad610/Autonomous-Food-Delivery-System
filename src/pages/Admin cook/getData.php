@@ -5,6 +5,7 @@ require_once('connection.php');
 /*************************************    Main Code  ************************************************************** */
 $tocook=array();
 $toDeliver=array();
+$deliveringIDs=array();
 
 //**queued means the food is queued for delivery on the robot,not just added to the to deliver list
 
@@ -15,12 +16,12 @@ $toDeliver=array();
 
 $toCookQuery= "SELECT * from user_info WHERE showcook=0 ORDER BY id";
 $toDeliverQuery="SELECT * from user_info WHERE showcook=1 and queued=0 ORDER BY id";
-
+$deliveringIDsQuery="SELECT  * from user_info WHERE showcook=1 and queued=1 and delivered=0 ORDER BY id";
 
 
     $toCookResponse = mysqli_query($connect,$toCookQuery);
     $toDeliverResponse=mysqli_query($connect,$toDeliverQuery);
-
+    $deliveringIDsResponse=mysqli_query($connect,$deliveringIDsQuery);
     //This part queries the database for food items which have been ordered and put them in the to cook list
     if($toCookResponse){
         while($row=mysqli_fetch_array($toCookResponse)){
@@ -40,6 +41,14 @@ $toDeliverQuery="SELECT * from user_info WHERE showcook=1 and queued=0 ORDER BY 
             $tableno = $row['tableno'];
             $food = $row['food'];
             $toDeliver[]= array('name'=>$name,'id'=>$id, 'tableno' => $tableno,'food'=>$food);
+        }
+    }
+
+    //This part queries the database for food items which have been prepared and being delivered at the moment and put them in the to deliveringIDs list
+    if($toDeliverResponse){
+        while ($row=mysqli_fetch_array($deliveringIDsResponse)) { 
+            $id = $row['id'];
+            $deliveringIDs[]= array('id'=>$id);
         }
     }
 
@@ -138,7 +147,10 @@ if(isset($_GET["deliverylist"])){
             echo "error". $connect->error;
         }
         array_push($robotDeliveryQueue,$value['tableno']);  //push the table number of the element to the robotDeliveryQueue
-
+        global $deliveringIDs;
+        array_push($deliveringIDs,$value['id']);
+        echo "delivering IDS are ";
+        print_r($deliveringIDs);
         $removingElementKey=searchForId($value['id'],$toDeliver);
 
         //echo "removing".$removingElementKey."from robotDeliverQueue" ;
@@ -163,7 +175,36 @@ if(isset($_GET["deliverylist"])){
 }
     
    
+if(isset($_GET["delivered"])){
+    global $deliveringIDs;
+    if(!empty($deliveringIDs)){
+        
+        foreach($deliveringIDs as $value){
 
+            $id=mysql_real_escape_string($value['id']);
+            $deliveryCompleteQuery="UPDATE user_info SET delivered=1 WHERE id='$id'";
+            $deliveryCompleteResponse=mysqli_query($connect,$deliveryCompleteQuery);
+
+
+        if ($connect->query($deliveryCompleteQuery)===TRUE) {
+            ;
+           
+        }
+        else{
+            echo "error". $connect->error;
+        }
+
+            $removingElementKey=searchForId($value['id'],$deliveringIDs);
+            unset($deliveringIDs[$removingElementKey]);
+        }
+        print_r($deliveringIDs);
+        exit();
+    }
+    else{
+        echo "null";
+        exit();
+    }
+}
 
 
 ?>
