@@ -137,7 +137,7 @@ function Pathfinder($List,$_distArr){
 		return $path;
 	}
 	else{
-		echo "";
+		echo "null";
 		exit();
 	}
 }
