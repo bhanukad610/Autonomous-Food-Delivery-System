@@ -189,14 +189,18 @@ function directionFinder($data,$route){
 	                    //$direction[count($direction)+1] = "F";
 	                }
 	                else if($l == $data[$route[$i]][$j][2]){
-	                    $direction[count($direction)+1] = "F";
+						array_push($direction, "F");
+	                    //$direction[count($direction)+1] = "F";
 	                }
 	                else if($l == $data[$route[$i]][$j][3]){
-	                    $direction[count($direction)+1] = "R";
+						array_push($direction, "R");
+	                    //$direction[count($direction)+1] = "R";
 	                    //$direction[count($direction)+1] = "F";
 	                }
 	                else if($l == $data[$route[$i]][$j][4]){
-	                    $direction[count($direction)+1] = "B";
+						array_push($direction, "W");
+						array_push($direction, "B");
+	                    //$direction[count($direction)+1] = "B";
 	                    //$direction[count($direction)+1] = "F";
 	                }
 				}
